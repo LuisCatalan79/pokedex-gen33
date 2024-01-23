@@ -68,12 +68,20 @@
     font-weight: 700;
     text-transform: uppercase;
 }
+
 .form__container__list{
     display: flex;
     flex-wrap: wrap;
     row-gap: 20px;
     column-gap: 20px;
     align-items: center;
+}
+.span__msgError{
+    color: #dd1a1a;
+    display: flex;
+    justify-content:flex-start;
+    text-align: center;
+   
 }
 .search__container{
     display: flex;

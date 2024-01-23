@@ -21,17 +21,26 @@
     margin-bottom: 10px;
     font-size: 26px;
 }
+
 .description__home{
     text-align: center;
     line-height: 1.5;
     margin-bottom: 30px;
 }
+.span__msgError{
+    color: #dd1a1a;
+    display: block;
+    justify-content: center;
+    text-align: center;
+   margin: 10px;
+}
 .form__home{
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     row-gap: 20px;
     justify-content: center;
 }
+
 .input__home{
     padding: 10px 20px;
     font-size: 15px;

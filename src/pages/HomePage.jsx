@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { setTrainerG } from '../store/states/trainer.state'
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
@@ -12,10 +12,20 @@ const HomePages = () => {
 
     const navigate = useNavigate()
 
+    const [error, setError] = useState(false)
+    const [msgError, setMsgError] = useState('')
+
     const handleSubmit= e =>{
         e.preventDefault()
-        dispatch(setTrainerG(inputTrainer.current.value.trim()))
-        navigate('/pokedex')
+        if (inputTrainer.current.value.trim().length<3) {
+          setError(true)
+          setMsgError('❌¡Incorrect!, it must be more than three characters😵')
+          
+        } else {
+          dispatch(setTrainerG(inputTrainer.current.value.trim()))
+          navigate('/pokedex')
+          
+        }
     }
 
   return (
@@ -28,6 +38,14 @@ const HomePages = () => {
       </header>
 
         <form className="form__home" onSubmit={handleSubmit}>
+          {
+            error?
+            <span className="span__msgError">{msgError}</span>
+            :
+            <span>
+              
+            </span>
+          }
             <input className="input__home" ref={inputTrainer} type="text" placeholder="Enter your trainer name" />
             <button className="btn__home">Catch then all</button>
         </form>

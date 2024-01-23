@@ -10,35 +10,52 @@ const PokedexPage = () => {
 
   const [page, setPage] = useState(1);
   const [limitPerPage, setLimitPerPage] = useState(10)
-  const [totalPokemons, setTotalPokemons] = useState(0)
   const [inputValue, setInputValue] = useState('')
   const [typeSelected, setTypeSelected] = useState('allPokemons')
   const trainerName = useSelector(states => states.trainer)
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
   const [pokemons, getpokemons, getTypePokemon] = UseFetch(url)
-
+  const [error, setError] = useState(false)
+  const [msgError, setMsgError] = useState('')
+  
   const inputPerPage = useRef()
-
+  
   useEffect(() => {
     if (typeSelected == 'allPokemons') {
       getpokemons()
     } else {
       getTypePokemon(typeSelected)
     }
-
+    
   }, [typeSelected])
-
-
+  
+  let cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputValue)
+  let pokeResults = pokemons?.results.filter(cbFilter)
+  let totalResult = pokemons?.results.length
+  const [totalPokemons, setTotalPokemons] = useState(totalResult)
   const inputName = useRef()
-
+  
   const handleSearch = e => {
     e.preventDefault()
-    setInputValue(inputName.current.value.trim().toLowerCase())
+    cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputName.current.value)
+    pokeResults = pokemons?.results.filter(cbFilter)
+    if (pokeResults.length===0) {
+      setError(true)
+      setMsgError('❌¡Incorrect!, pokemon does not exist 😵')
+    } else if (inputName.current.value.trim().length===0) {
+      setError(true)
+      setMsgError('❌¡Incorrect!, you must enter at least one character😵')
+    } else {
+      setInputValue(inputName.current.value.trim().toLowerCase())
+      setError(false)
+    }
     setPage(1)
-
     inputName.current.value = ''
+    const totalResult= pokeResults.length
+    setTotalPokemons(totalResult)
   }
-  const cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputValue)
+      
+      
 
 
   const handleChange = (event, value) => {
@@ -48,7 +65,7 @@ const PokedexPage = () => {
 
   let startIndex = (page - 1) * limitPerPage; // Índice inicial del slice
   let endIndex = startIndex + limitPerPage; // Índice final del slice
-  let pokeResults = pokemons?.results.filter(cbFilter).slice(startIndex, endIndex) || [];
+  pokeResults = pokemons?.results.filter(cbFilter).slice(startIndex, endIndex) || [];
 
   useEffect(() => {
     setTotalPokemons(pokemons?.results.filter(cbFilter).length);
@@ -75,6 +92,13 @@ const PokedexPage = () => {
       </header>
       <aside className="aside__container">
         <h1 className="title__form__list">Hi <span className="span__name__trainer">{trainerName}</span>, here you can find you favourito pokemn</h1>
+            {
+              error?
+              <span className="span__msgError">{msgError}</span>
+              :
+              <span></span>
+              
+            }
         <form onSubmit={handleSearch} className="form__container__list">
       <a href="#/"><span className="material-symbols-outlined">home</span></a>
           <div className="search__container">
