@@ -76,6 +76,12 @@
     column-gap: 20px;
     align-items: center;
 }
+@media(max-width:627px){
+    .form__container__list{
+        flex-direction: column;
+    }
+}
+
 .span__msgError{
     color: #dd1a1a;
     display: flex;

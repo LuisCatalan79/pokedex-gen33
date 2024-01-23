@@ -88,7 +88,7 @@ const PokedexPage = () => {
       <header className="rectangle-red list header-pokemon-info">
         <div className="rectangle-black list"></div>
         <div className="circle list"></div>
-        <img className="pokedex-letters-header list" src="/src/assets/logo-pokedex.png" alt="image pokedex letters" />
+        <img className="pokedex-letters-header list" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/436/896/datas/original.png" alt="image pokedex letters" />
       </header>
       <aside className="aside__container">
         <h1 className="title__form__list">Hi <span className="span__name__trainer">{trainerName}</span>, here you can find you favourito pokemn</h1>
