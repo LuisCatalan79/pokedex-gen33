@@ -1,0 +1,76 @@
+.home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.header__home{
+    padding: 0 20px;
+}
+.img__pokedex__logo{
+    width: min(100%, 450px);
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    top: -40px;
+}
+.title__home{
+    color: #fe1936;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+.description__home{
+    text-align: center;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+.form__home{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    justify-content: center;
+}
+.input__home{
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    box-shadow: -2px 2px 6px #0002;
+}
+.btn__home{
+    font-size: 15px;
+    font-weight: 100;
+    padding: 10px 20px;
+    border: none;
+    color: #fff;
+    background-color: #d93f3f;
+    box-shadow: -2px 2px 6px #0002;
+    cursor: pointer;
+}
+.rectangle__red{
+    width: 100%;
+    height: 80px;
+    background-color: #dd1a1a;
+    position: absolute;
+    bottom: 0;
+}
+.rectangle__black{
+    width: 100%;
+    height: 35px;
+    background-color: #0c0c0c;
+    position: absolute;
+    bottom: 0;
+}
+.circle{
+    width: 55px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #000;
+    border: 10px solid white;
+    outline: 5px solid black;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%);
+}

@@ -10,14 +10,14 @@ const PokedexPage = () => {
 
   const [page, setPage] = useState(1);
   const [limitPerPage, setLimitPerPage] = useState(10)
-  const [totalPokemons, setTotalPokemons] = useState()
+  const [totalPokemons, setTotalPokemons] = useState(0)
   const [inputValue, setInputValue] = useState('')
   const [typeSelected, setTypeSelected] = useState('allPokemons')
   const trainerName = useSelector(states => states.trainer)
   const url = 'https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0'
   const [pokemons, getpokemons, getTypePokemon] = UseFetch(url)
 
-  const inputPerPage =useRef()
+  const inputPerPage = useRef()
 
   useEffect(() => {
     if (typeSelected == 'allPokemons') {
@@ -25,72 +25,80 @@ const PokedexPage = () => {
     } else {
       getTypePokemon(typeSelected)
     }
-    
+
   }, [typeSelected])
-  console.log(typeSelected);
+
 
   const inputName = useRef()
 
   const handleSearch = e => {
     e.preventDefault()
     setInputValue(inputName.current.value.trim().toLowerCase())
-    setPage (1)
-    console.log('buscando por nombre');
-    console.log(inputName.current.value);
-    console.log(inputValue);
-    inputName.current.value=''
+    setPage(1)
+
+    inputName.current.value = ''
   }
   const cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputValue)
 
 
   const handleChange = (event, value) => {
-    event.preventDefault
+    event.preventDefault()
     setPage(value)
   }
 
   let startIndex = (page - 1) * limitPerPage; // Índice inicial del slice
   let endIndex = startIndex + limitPerPage; // Índice final del slice
   let pokeResults = pokemons?.results.filter(cbFilter).slice(startIndex, endIndex) || [];
-  
+
   useEffect(() => {
     setTotalPokemons(pokemons?.results.filter(cbFilter).length);
   }, [page, handleChange])
 
-  
+
 
   const handlePagination = (event) => {
     event.preventDefault();
-    console.log(inputPerPage.current.value)
+
     const inputValue = inputPerPage.current.value;
     if (!isNaN(inputValue) && inputValue > 0) {
-        setLimitPerPage(parseInt(inputValue));
-        setPage(1)
+      setLimitPerPage(parseInt(inputValue));
+      setPage(1)
     }
-}
-  // console.log(pokeResults);
-  // let totalPokemons = pokemons?.results.length
-  // console.log(totalPokemons);
+  }
+
   return (
-    <div>
-      <h2>Hi <span>{trainerName}</span>, here you can find you favourito pokemn</h2>
-      <form onSubmit={handleSearch}>
-        <input ref={inputName} type="text" />
-        <button>Search</button>
+    <div className="list__pokemon__components">
+      <header className="rectangle-red list header-pokemon-info">
+        <div className="rectangle-black list"></div>
+        <div className="circle list"></div>
+        <img className="pokedex-letters-header list" src="/src/assets/logo-pokedex.png" alt="image pokedex letters" />
+      </header>
+      <aside className="aside__container">
+        <h1 className="title__form__list">Hi <span className="span__name__trainer">{trainerName}</span>, here you can find you favourito pokemn</h1>
+        <form onSubmit={handleSearch} className="form__container__list">
+      <a href="#/"><span className="material-symbols-outlined">home</span></a>
+          <div className="search__container">
+            <input className="input__form__list" ref={inputName} type="text" placeholder="search pokemon by name" />
+            <button className="button__form__list">Search</button>
+          </div>
+
+      <div className="selec__type__pokemon">
+      <SelectType  setTypeSelected={setTypeSelected}/>
+      </div>
+
+      <select className="selec__type__pokemon" ref={inputPerPage} onChange={handlePagination}>
+        <option value='all'>All</option>
+        <option value='2'>2</option>
+        <option value='4'>4</option>
+        <option value='6'>6</option>
+        <option value='8'>8</option>
+        <option value='10'>10</option>
+        <option value='13'>13</option>
+        <option value='17'>17</option>
+        <option value='20'>20</option>
+      </select>
       </form>
-      <select  ref={inputPerPage} onChange={handlePagination}>
-                        <option value='all'>all</option>
-                        <option value='2'>2</option>
-                        <option value='4'>4</option>
-                        <option value='6'>6</option>
-                        <option value='8'>8</option>
-                        <option value='10'>10</option>
-                        <option value='13'>13</option>
-                        <option value='17'>17</option>
-                        <option value='20'>20</option>
-                    </select>
-      <SelectType setTypeSelected={setTypeSelected} 
-      
-      />
+    </aside>
       <div className="pokemons__container">
         {
           pokeResults.filter(cbFilter).map(pokeInfo => (
@@ -101,10 +109,12 @@ const PokedexPage = () => {
           ))
         }
       </div>
-      <Pagination
-        count={parseInt(Math.ceil(totalPokemons / limitPerPage))}
+      <Pagination className="pagination__pokedex"
+        count={parseInt(Math.ceil(totalPokemons / limitPerPage)) || 0}
         page={page}
-        onChange={handleChange} />
+        onChange={handleChange}
+        color='primary'
+        shape='rounded' />
     </div>
   )
 }

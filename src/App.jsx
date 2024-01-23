@@ -10,7 +10,7 @@ function App() {
 
   
   return (
-    <div>
+    <div className='poke-app'>
       <Routes>
         <Route path='/' element={<HomePage/>} />
         <Route element={<ProtectedRoutes/>} >
