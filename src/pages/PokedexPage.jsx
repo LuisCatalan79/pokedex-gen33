@@ -37,7 +37,7 @@ const PokedexPage = () => {
   
   const handleSearch = e => {
     e.preventDefault()
-    cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputName.current.value)
+    cbFilter = (pokeInfo) => pokeInfo.name.toLowerCase().includes(inputName.current.value.toLowerCase())
     pokeResults = pokemons?.results.filter(cbFilter)
     if (pokeResults.length===0) {
       setError(true)
