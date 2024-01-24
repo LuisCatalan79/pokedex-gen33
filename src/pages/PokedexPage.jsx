@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import UseFetch from "../hooks/UseFetch"
 import { useEffect, useRef, useState } from "react"
 import PokeCard from "../components/PokedexPage/PokeCard"
 import SelectType from "../components/PokedexPage/SelectType"
 import '../components/PokedexPage/styles/PokedexPage.css'
 import Pagination from '@mui/material/Pagination';
+import { setModeViewG } from "../store/states/modeView.state"
+
 
 const PokedexPage = () => {
 
@@ -56,13 +58,20 @@ const PokedexPage = () => {
   }
       
       
-
+  const dispatch = useDispatch()
+  const modeView = useSelector(states=>states.modeView)
 
   const handleChange = (event, value) => {
     event.preventDefault()
     setPage(value)
   }
 
+  const handleModeChange = (e) => {
+    e.preventDefault()
+  
+      dispatch(setModeViewG(!modeView))
+    console.log(modeView);
+  }
   let startIndex = (page - 1) * limitPerPage; // Índice inicial del slice
   let endIndex = startIndex + limitPerPage; // Índice final del slice
   pokeResults = pokemons?.results.filter(cbFilter).slice(startIndex, endIndex) || [];
@@ -84,13 +93,13 @@ const PokedexPage = () => {
   }
 
   return (
-    <div className="list__pokemon__components">
+    <div className={`list__pokemon__components ${modeView?'light':'dark'}`}>
       <header className="rectangle-red list header-pokemon-info">
         <div className="rectangle-black list"></div>
         <div className="circle list"></div>
         <img className="pokedex-letters-header list" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/436/896/datas/original.png" alt="image pokedex letters" />
       </header>
-      <aside className="aside__container">
+      <aside className={`aside__container ${modeView?'light':'dark'}`}>
         <h1 className="title__form__list">Hi <span className="span__name__trainer">{trainerName}</span>, here you can find you favourito pokemn</h1>
             {
               error?
@@ -104,6 +113,7 @@ const PokedexPage = () => {
           <div className="search__container">
             <input className="input__form__list" ref={inputName} type="text" placeholder="search pokemon by name" />
             <button className="button__form__list">Search</button>
+            <button className="button__form__list" onClick={handleModeChange}>Mode change</button>
           </div>
 
       <div className="selec__type__pokemon">
@@ -123,7 +133,7 @@ const PokedexPage = () => {
       </select>
       </form>
     </aside>
-      <div className="pokemons__container">
+      <div className={ `pokemons__container ${modeView?'light':'dark'}`}>
         {
           pokeResults.filter(cbFilter).map(pokeInfo => (
             <PokeCard
@@ -133,7 +143,7 @@ const PokedexPage = () => {
           ))
         }
       </div>
-      <Pagination className="pagination__pokedex"
+      <Pagination className={`pagination__pokedex ${modeView?'light':'dark'}`}
         count={parseInt(Math.ceil(totalPokemons / limitPerPage)) || 0}
         page={page}
         onChange={handleChange}

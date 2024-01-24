@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage';
 import PokedexPage from './pages/PokedexPage';
 import PokemonPage from './pages/PokemonPage';
 import ProtectedRoutes from './pages/ProtectedRoutes';
+import './components/PokemonPage/styles/PokemonPage.css'
+
 
 function App() {
 

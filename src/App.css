@@ -1,3 +1,9 @@
-img{
-    width: 50%;
-}
+.dark{
+    background-color: black;
+    color: var(--color);
+  }
+  .ligth{
+    background-color: white;
+    color: var(--color);
+  }
+  

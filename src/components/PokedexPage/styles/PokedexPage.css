@@ -62,6 +62,7 @@
     font-size: 16px;
     font-weight: 300;
     margin-bottom: 25px;
+    color: rgb(34, 34, 68);
 }
 .span__name__trainer{
     color: #fe1936;
@@ -81,7 +82,9 @@
         flex-direction: column;
     }
 }
-
+.material-symbols-outlined{
+    font-size: 3rem;
+}
 .span__msgError{
     color: #dd1a1a;
     display: flex;
@@ -104,6 +107,8 @@
     background-color: #d93f3f;
     cursor: pointer;
     box-shadow: -2px 2px 6px #0002;
+    border-radius: 5px;
+    margin-right: 2px;
 }
 .selec__type__pokemon{
     padding: 10px 20px;
@@ -121,4 +126,5 @@
     padding: 20px;
     display: flex;
     justify-content: center;
+    color: rgb(34, 34, 68);
 }

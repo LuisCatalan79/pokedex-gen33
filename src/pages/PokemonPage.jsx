@@ -1,9 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom"
 import UseFetch from "../hooks/UseFetch"
 import { useEffect, useState } from "react"
-// import '../components/PokedexPage/styles/PokemonPage.css'
-// import '../components/PokedexPage/styles/PokeCard.css'
 import '../components/PokemonPage/styles/PokemonPage.css'
+import { useSelector } from "react-redux"
 
 const PokemonPage = () => {
 
@@ -45,11 +44,10 @@ const PokemonPage = () => {
     navigate(`/pokedex/${id}`)
   }
 
-  console.log(pokemon);
-  console.log(pokemon?.abilities)
-
+  const modeView = useSelector(states => states.modeView)
+  console.log(modeView);
   return (
-    <div className="pokemonpage__containers">
+    <div className={`pokemonpage__containers ${modeView?'ligth':'dark'}`}>
       <a className="go-to-list-pokemon" href="#/pokedex/"><span className="material-symbols-outlined">
 undo
 </span></a>
@@ -59,7 +57,7 @@ undo
         <img className="pokedex-letters-header list" src="https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/002/436/896/datas/original.png" alt="image pokedex letters" />
       </header>
 
-      <article className="pokemonpage__cardInfo">
+      <article className={`pokemonpage__cardInfo `}>
         <header className={`header__pokemonpage__cardInfo ${pokemon?.types[0].type.name}`}>
           <button onClick={handlePrev} className="preview__next__pokemonpage__info"><span className="material-symbols-outlined">
 first_page
