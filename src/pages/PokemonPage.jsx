@@ -102,12 +102,6 @@ last_page
                   <span className="span__type__abilities">Abilities</span>
                   <ul className="type__abilitie__flex">
                     
-                    {/* {
-                    pokemon?.abilities.map(abilityInfo =>
-                      <div className="type__abilitie__flex"key={abilityInfo.ability.url} >{abilityInfo.ability.name}<div className="type__abilitie__cardInfo"> 
-                      </div> </div> 
-                    )
-                    } */}
                     {
                       
                     pokemon?.abilities.map(abilityInfo =>
