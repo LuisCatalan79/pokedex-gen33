@@ -6,6 +6,7 @@ import SelectType from "../components/PokedexPage/SelectType"
 import '../components/PokedexPage/styles/PokedexPage.css'
 import Pagination from '@mui/material/Pagination';
 import { setModeViewG } from "../store/states/modeView.state"
+import { PaginationItem } from "@mui/material"
 
 
 const PokedexPage = () => {
@@ -148,7 +149,18 @@ const PokedexPage = () => {
         page={page}
         onChange={handleChange}
         color='primary'
-        shape='rounded' />
+        shape='rounded' 
+        renderItem={(item)=>(
+          <PaginationItem {...item} sx={{ color: '#fff', 
+            backgroundColor: '#fe1936', 
+            borderRadius: '10%', 
+            width: '40px', 
+            height: '40px', 
+            border: '3px solid #000',
+            margin: '10px'}} />
+
+        )}
+        />
     </div>
   )
 }
